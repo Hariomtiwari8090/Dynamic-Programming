@@ -42,3 +42,20 @@ class Solution {
         return Math.max(dp[n-1],dp[n-2]);
     }
 }
+
+----------------------------------------------------
+
+class Solution {
+    public int rob(int[] arr) {
+        int n=arr.length;
+        if(n==1) return arr[0];
+        int a=arr[0];
+        int b=Math.max(arr[0],arr[1]),c=Math.max(a,b);
+        for(int i=2;i<n;i++){
+            c=Math.max(b,arr[i]+a);
+            a=b;
+            b=c;
+        }
+        return c;
+    }
+}
