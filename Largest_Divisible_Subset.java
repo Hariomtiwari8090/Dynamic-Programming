@@ -21,3 +21,35 @@ class Solution {
 }
 
 ---------------------------------------------------------------------------------
+
+class Solution {
+    public List<Integer> largestDivisibleSubset(int[] arr) {
+        Arrays.sort(arr);
+        int n=arr.length;
+        int[] dp=new int[n];
+        int[] last=new int[n];
+        Arrays.fill(dp,1);
+        Arrays.fill(last,-1);
+        int maxlen=1;
+        int maxidx=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(arr[i]%arr[j]==0 && dp[i]<dp[j]+1){
+                    dp[i]=dp[j]+1;
+                    last[i]=j;
+                }
+            }
+            if(dp[i]>maxlen){
+                maxlen=dp[i];
+                maxidx=i;
+            }
+        }
+        List<Integer> l=new ArrayList<>();
+        while(maxidx!=-1){
+            l.add(arr[maxidx]);
+            maxidx=last[maxidx];
+        }
+        Collections.reverse(l);
+        return l;
+    }
+}
